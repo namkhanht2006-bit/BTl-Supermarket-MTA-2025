@@ -8,8 +8,8 @@ class FoodProduct:public product {
     void setQuantity(int v) { quantity = v; }
     void setBrand(const string& v) { brand = v; }
     void setWeight(float v) { weight = v; }
-    void setWarranty(const string& v) { warranty = v; }
-    void setSeri(const string& v) { seri = v; }
+    void setExpiry(const string& v) { Expiry = v; }
+    void setNutrition(const string& v) { Nutrition = v; }
     string getExpiry(string &v)const {return expiry;}
     string getNutrition(string &v) const{return Nutrition;}
     double price_discount(int qty) const;
