@@ -1,6 +1,6 @@
 class FoodProduct:public product {
-    string Expiry;
-    string Nutrition;
+    string expiry;
+    string nutrition;
     public:
     void setId(const string &v){id =v; };
     void setName(const std::string& v) { name = v; }
@@ -10,7 +10,8 @@ class FoodProduct:public product {
     void setWeight(float v) { weight = v; }
     void setWarranty(const string& v) { warranty = v; }
     void setSeri(const string& v) { seri = v; }
-    
+    string getExpiry(string &v)const {return expiry;}
+    string getNutrition(string &v) const{return Nutrition;}
     double price_discount(int qty) const;
     string type() const;
 
