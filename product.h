@@ -12,9 +12,7 @@ protected:
     string brand;
     float weight;
     public:
-    virtual void readfile(istream &is)=0;
-    virtual void writefile(ostream &os)=0;
-    virtual void inputfile(istream &is)=0;
+
     virtual double price_discount(int qty) const = 0;
     virtual string type() const = 0;
     string getname() { return name; };
@@ -159,5 +157,6 @@ public:
                         Supermarket& sieuThi,
                         const std::string& maDonMoi);
 };
+
 
 
