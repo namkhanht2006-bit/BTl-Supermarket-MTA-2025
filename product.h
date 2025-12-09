@@ -97,7 +97,7 @@ public:
         MucGio() : SPptr(nullptr), Soluong(0), price(0.0) {}
         MucGio(product* sp, int sl)
             : SPptr(sp), Soluong(sl), price(sp ? sp->getprice() : 0.0) {
-            if (sp) maSanPham = sp->getid();
+            if (sp) maSP = sp->getid();
         }
 
     };
@@ -159,4 +159,5 @@ public:
                         Supermarket& sieuThi,
                         const std::string& maDonMoi);
 };
+
 
