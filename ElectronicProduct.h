@@ -5,9 +5,6 @@ class ElectronicProduct:product{
     string seri;
     vector<product> epro;
 public:
-    void readfile(istream &is);
-    void writefile(ostream &os);
-    void inputfile(istream &is);
     void setId(const string &v){id =v; };
     void setName(const std::string& v) { name = v; }
     void setPrice(double v) { price = v; }
@@ -22,4 +19,5 @@ public:
     std::string getSeri() const { return seri; }
     double price_discount(int qty) const;
     string type() const;
+
 };
