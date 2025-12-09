@@ -3,7 +3,6 @@
 class ElectronicProduct:product{
     string warranty;
     string seri;
-    vector<product> epro;
 public:
     void setId(const string &v){id =v; };
     void setName(const std::string& v) { name = v; }
@@ -21,3 +20,4 @@ public:
     string type() const;
 
 };
+
