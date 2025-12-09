@@ -43,10 +43,8 @@ class ElectronicProduct:product {
     void inputfile(istream &is);
     double price_discount(int qty) const;
     string type() const;
-    void quality();
-
 };
-class Householdproduct:product {
+class HouseholdProduct:product {
     string material;
     string usage;
     public:
@@ -91,14 +89,14 @@ class Cart {
 public:
 
     struct MucGio {
-        std::string maSanPham;
-        product* sanPhamPtr;
-        int soLuong;
-        double donGiaGoc;
+        std::string maSP;
+        product* SPptr;
+        int Soluong;
+        double price;
 
-        MucGio() : sanPhamPtr(nullptr), soLuong(0), donGiaGoc(0.0) {}
+        MucGio() : SPptr(nullptr), Soluong(0), price(0.0) {}
         MucGio(product* sp, int sl)
-            : sanPhamPtr(sp), soLuong(sl), donGiaGoc(sp ? sp->getprice() : 0.0) {
+            : SPptr(sp), Soluong(sl), price(sp ? sp->getprice() : 0.0) {
             if (sp) maSanPham = sp->getid();
         }
 
@@ -114,32 +112,32 @@ public:
 };
 class Customer {
 public:
-    std::string maKhach;
-    std::string tenKhach;
+    std::string customer_id;
+    std::string name;
     Cart gioHang;
 
     Customer() = default;
     Customer(std::string ma, std::string ten)
-        : maKhach(std::move(ma)), tenKhach(std::move(ten)) {}
+        : customer_id(std::move(ma)), ten(std::move(ten)) {}
 
-    void xoaGioHang() { gioHang.danhSach.clear(); }
+    void deletecart() { gioHang.danhSach.clear(); }
 
 
-    bool themSanPhamVaoGioHang(Supermarket& sieuThi, const std::string& maSanPham, int soLuong);
-    bool xoaSanPhamKhoiGioHang(const std::string& maSanPham);
-    bool thayDoiSoLuongTrongGioHang(const std::string& maSanPham, int soLuongMoi);
+    bool ThemSP(Supermarket& sieuThi, const std::string& maSanPham, int soLuong);
+    bool XoaSp(const std::string& maSanPham);
+    bool ThaySl(const std::string& maSanPham, int soLuongMoi);
 
 };
 class OrderItem {
 public:
-    std::string maSanPham;
-    std::string ten;
-    int soLuong;
-    double donGiaGoc;
-    double donGiaSauGiam;
-    double thanhTien;
+    std::string product_id;
+    std::string name;
+    int amount;
+    double ori_price;
+    double d_price;
+    double buy;
 
-    OrderItem() : soLuong(0), donGiaGoc(0), donGiaSauGiam(0), thanhTien(0) {}
+    OrderItem() : amount(0), ori_price(0), d_price(0), buy(0) {}
 };
 class Order {
 public:
@@ -152,7 +150,7 @@ public:
     Order(std::string maDon_, std::string maKhach_, std::string ngayGio_)
         : order_id(maDon_), customer_id(maKhach_), date(ngayGio_) {}
 
-    double tongTien() const;
+    double Total() const;
     std::string toTextHoaDon() const;
     bool ghiRaFile(const std::string& tenFile) const;
 
@@ -161,3 +159,4 @@ public:
                         Supermarket& sieuThi,
                         const std::string& maDonMoi);
 };
+
