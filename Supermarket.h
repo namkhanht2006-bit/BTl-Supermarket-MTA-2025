@@ -27,5 +27,5 @@ public:
     bool tangSoLuong(const std::string& maSanPham, int sl);
     bool giamSoLuong(const std::string& maSanPham, int sl);
 
-    std::vector<product*> layTatCa() const;
+    vector<product*> layTatCa() const;
 };
