@@ -1,21 +1,24 @@
-#include"product.h"
-#include"Cart.h"
-#include"Supermarket.h"
-class Customer {
+#pragma once
+#include <iostream>
+#include <string>
+#include "cart.h"
+using namespace std;
+class Customer
+{private :
+	string Name;
+	string Gender;
+	string PhoneNumber;
+	string Address;
+	double Age;
 public:
-    std::string customer_id;
-    std::string name;
-    Cart gioHang;
-
-    Customer() = default;
-    Customer(std::string ma, std::string ten)
-        : customer_id(std::move(ma)), name(std::move(ten)) {}
-
-    void deletecart() { gioHang.danhSach.clear(); }
-
-
-    bool ThemSP(Supermarket& sieuThi, const std::string& maSanPham, int soLuong);
-    bool XoaSp(const std::string& maSanPham);
-    bool ThaySl(const std::string& maSanPham, int soLuongMoi);
-
+	Cart cart;
+	Customer();
+	Customer(string name, string gender, string phonenumber, string address, double age);
+	~Customer();
+	void input();
+	void output();
+	void Addcart(product* p);
+	void Deletecart(const string &id);
+	//void Printcart();
+	//void Bill(const string& filename);
 };
