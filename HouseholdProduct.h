@@ -11,7 +11,7 @@ public:
     double price_discount(int qty) const;
     string type() const;
     Householdproduct();
-    Householdproduct(string usage,string material);
+    Householdproduct(string Usage,string Material);
     ~Householdproduct();
     friend ostream& operator<<(ostream& out, const Householdproduct& p);
     friend istream& operator>>(istream& in, Householdproduct& p);
