@@ -15,11 +15,14 @@ public:
         : order_id(maDon_), customer_id(maKhach_), date(ngayGio_) {}
 
     double Total() const;
+    std::string getTime();
     std::string toTextHoaDon() const;
     bool ghiRaFile(const std::string& tenFile) const;
 
-    static std::optional<Order>
-    taoTuCartVaCheckout(const Customer& khach,
-                        Supermarket& sieuThi,
-                        const std::string& maDonMoi);
+    bool taoTuCartVaCheckout(const Customer& kh,
+                        Supermarket& sm,
+                        const std::string& maDonMoi,
+                        Order& out);
+    
+
 };
