@@ -10,26 +10,27 @@ double ElectronicProduct::price_discount(int qty) const {
     if (qty >= 10) return price * qty * 0.95;
     return price * qty;
 }
-void ElectronicProduct::them() {
-    product::them();
+void ElectronicProduct::them(istream &is) {
+    product::them(is);
     cout<<"Nhap bao hanh: "<<endl;
-    cin>>warranty;
+    is>>warranty;
     cout<<"Nhap so seri: "<<endl;
-    cin>>seri;
+    is>>seri;
 
 }
-void ElectronicProduct::in() {
-    product::in();
-    cout<<"Thoi han bao hanh: "<<warranty<< endl;
-    cout<<"So seri: "<<seri<<endl;
+void ElectronicProduct::in(ostream &os) {
+    product::in(os);
+    os<<"Thoi han bao hanh: "<<warranty<< endl;
+    os<<"So seri: "<<seri<<endl;
 }
 
 istream& operator>>(istream& is, ElectronicProduct& e) {
-    e.them();
+    e.them(is);
 }
 
 ostream& operator<<(ostream& os, ElectronicProduct& e) {
-    e.in();
+    e.in(os);
 
 }
+
 
