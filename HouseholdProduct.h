@@ -4,17 +4,16 @@ class ElectronicProduct:product{
     string material;
     string usage;
 public:
-    void setId(const string &v){id =v; };
-    void setName(const std::string& v) { name = v; }
-    void setPrice(double v) { price = v; }
-    void setQuantity(int v) { quantity = v; }
-    void setBrand(const std::string& v) { brand = v; }
-    void setWeight(float v) { weight = v; }
-    void setMaterial(const std::string& v) { Material= v; }
-    void setUsage(const std::string& v) { Usage= v; }
+    void them(istream& in) ;
+    void in(ostream& out) const ;
     string getMaterial() const { return material; }
     string getUsage() const { return usage; }
     double price_discount(int qty) const;
     string type() const;
+    Householdproduct();
+    Householdproduct(string usage,string material);
+    ~Householdproduct();
+    friend ostream& operator<<(ostream& out, const Householdproduct& p);
+    friend istream& operator>>(istream& in, Householdproduct& p);
 };
 
