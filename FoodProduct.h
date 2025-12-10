@@ -10,6 +10,7 @@ class FoodProduct:public product {
     string type() const;
     friend ostream& operator<<(ostream& out, const product& p);
     friend istream& operator>>(istream& in, product& p);
+    bool Can_sell(int qty);
     Foodproduct();
     Foodproduct(string expiry,string nutrition);
     ~Foodproduct();
