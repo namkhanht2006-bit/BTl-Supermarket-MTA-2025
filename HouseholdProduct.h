@@ -1,6 +1,6 @@
 #include"product.h"
 #include<vector>
-class ElectronicProduct:product{
+class HouseholdProduct:product{
     string material;
     string usage;
 public:
