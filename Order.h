@@ -10,7 +10,7 @@ public:
     std::string date;
     std::vector<OrderItem> danhSachMuc;
 
-    Order() = default;
+    Order();
     Order(std::string maDon_, std::string maKhach_, std::string ngayGio_)
         : order_id(maDon_), customer_id(maKhach_), date(ngayGio_) {}
 
@@ -26,3 +26,4 @@ public:
     
 
 };
+
