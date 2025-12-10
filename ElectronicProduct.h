@@ -11,6 +11,8 @@ public:
     string type() const;
     void them(istream &is) override;
     void in(ostream &os) override;
+    bool Can_sell(int qty);
     friend istream& operator>>(istream& is, ElectronicProduct& e);
     friend ostream& operator<<(ostream& os, ElectronicProduct& e);
 };
+
