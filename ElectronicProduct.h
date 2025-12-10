@@ -14,5 +14,9 @@ public:
     bool Can_sell(int qty);
     friend istream& operator>>(istream& is, ElectronicProduct& e);
     friend ostream& operator<<(ostream& os, ElectronicProduct& e);
+    ElectronicProduct();
+    ElectronicProduct(string expiry,string nutrition);
+    ~ElectronicProduct();
 };
+
 
