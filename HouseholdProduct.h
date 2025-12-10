@@ -10,6 +10,7 @@ public:
     string getUsage() const { return usage; }
     double price_discount(int qty) const;
     string type() const;
+    bool Can_sell(int qty);
     Householdproduct();
     Householdproduct(string Usage,string Material);
     ~Householdproduct();
