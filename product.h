@@ -19,7 +19,8 @@ protected:
     string getname() { return name; };
     string getid() { return id; };
     double getprice() { return price; };
-    friend ostream& operator<<(ostream& out, const product& p);
+    friend ostream& operator<<(ostream& out, product& p);
     friend istream& operator>>(istream& in, product& p);
 };
+
 
