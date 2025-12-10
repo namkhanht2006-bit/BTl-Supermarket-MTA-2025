@@ -19,9 +19,20 @@ double FoodProduct::price_discount(int qty) const {
 void Foodproduct::them(istream& in) {
     product::them(in);
     cout << "Enter Expiry: "; getline(in, Expiry);
-    cout << "Enter Allergy: "; getline(in, Allergy);
     cout << "Enter Nutrition: "; getline(in, Nutrition);
-    cout << "Enter Storage: "; getline(in, Storage);
+}
+void Foodproduct::in(ostream& out) const {
+    product::in(out);
+    out << "Expiry: " << Expiry << endl;
+    out << "Nutrition: " << Nutrition << endl;
+}
+ostream& operator<<(ostream& out, const Foodproduct& p) {
+    p.print(out);
+    return out;
+}
+istream& operator>>(istream& in, Foodproduct& p) {
+    p.input(in);
+    return in;
 }
 
 
