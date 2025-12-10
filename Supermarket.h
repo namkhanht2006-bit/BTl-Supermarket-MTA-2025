@@ -10,7 +10,7 @@ using namespace std;
 class Supermarket {
 public:
 
-    vector<unique_ptr<product>> danhSachSanPham;
+    std::vector<Product*> danhSachSanPham;
 
     Supermarket() = default;
     ~Supermarket() = default;
