@@ -1,0 +1,25 @@
+
+#include"OrderItem.h"
+#include"Customer.h"
+#include<optional>
+#include<vector>
+class Order {
+public:
+    std::string order_id;
+    std::string customer_id;
+    std::string date;
+    std::vector<OrderItem> danhSachMuc;
+
+    Order() = default;
+    Order(std::string maDon_, std::string maKhach_, std::string ngayGio_)
+        : order_id(maDon_), customer_id(maKhach_), date(ngayGio_) {}
+
+    double Total() const;
+    std::string toTextHoaDon() const;
+    bool ghiRaFile(const std::string& tenFile) const;
+
+    static std::optional<Order>
+    taoTuCartVaCheckout(const Customer& khach,
+                        Supermarket& sieuThi,
+                        const std::string& maDonMoi);
+};
