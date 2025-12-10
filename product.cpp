@@ -10,7 +10,7 @@ void product::them(istream &in) {
 }
 
 void product::in(ostream &os) {
-    cout<<"Ma so: ";os<<id;
+    cout<<"Ma so: ",os<<id;
     cout<<"Ten: ",os<<name<<endl;
     cout<<"Price: ", os<<price<<endl;
     cout<<"Thuong hieu: ",os<<brand<<endl;
@@ -24,3 +24,4 @@ istream &operator>>(istream &is, product &p) {
 ostream &operator<<(ostream &os, product &p) {
     p.in(os);
 }
+
