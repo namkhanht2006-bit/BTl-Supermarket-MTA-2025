@@ -34,6 +34,6 @@ istream& operator>>(istream& in, Foodproduct& p) {
     p.input(in);
     return in;
 }
-bool Can_sell(int qty);
+
 
 
