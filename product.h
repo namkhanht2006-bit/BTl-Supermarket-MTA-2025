@@ -2,6 +2,8 @@
 #include<iostream>
 #include<vector>
 #include <fstream>
+#pragma once
+
 using namespace std;
 class product {
 protected:
@@ -22,5 +24,6 @@ protected:
     friend ostream& operator<<(ostream& out, product& p);
     friend istream& operator>>(istream& in, product& p);
 };
+
 
 
