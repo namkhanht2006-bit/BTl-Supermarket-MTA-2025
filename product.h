@@ -14,7 +14,9 @@ protected:
     float weight;
     int quantity;
     public:
-    virtual bool Can_sell(int qty);
+    virtual bool Can_sell(int qty)  {
+        return qty > 0 && quantity >= qty;
+    }
     virtual double price_discount(int qty) const = 0;
     virtual string type() const = 0;
     virtual void them(istream& in);
@@ -25,6 +27,7 @@ protected:
     friend ostream& operator<<(ostream& out, product& p);
     friend istream& operator>>(istream& in, product& p);
 };
+
 
 
 
