@@ -2,14 +2,11 @@
 #include <vector>
 #include <memory>
 #include <string>
-#include "product.h"
-#include "FoodProduct.h"
-#include "ElectronicProduct.h"
-#include "HouseholdProduct.h"
+#include <fstream>      
+#include "product.h"     
 
 class Supermarket {
 private:
-
     std::vector<std::unique_ptr<product>> danhSachSanPham;
 
 public:
@@ -39,4 +36,5 @@ public:
         return danhSachSanPham;
     }
 };
+
 
