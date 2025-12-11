@@ -1,6 +1,6 @@
 #pragma once
-#include <iostream>
 #include <string>
+#include "Supermarket.h"
 #include "cart.h"
 using namespace std;
 class Customer
@@ -17,8 +17,10 @@ public:
 	~Customer();
 	void input();
 	void output();
-	void Addcart(product* p);
-	void Deletecart(const string &id);
+	void Buy(Supermarket &sp);
+	void Deletecart();
+	void Changecart();
 	//void Printcart();
 	//void Bill(const string& filename);
 };
+
