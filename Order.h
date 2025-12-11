@@ -1,7 +1,6 @@
 
 #include"OrderItem.h"
 #include"Customer.h"
-#include<optional>
 #include<vector>
 class Order {
 public:
@@ -19,11 +18,12 @@ public:
     std::string toTextHoaDon() const;
     bool ghiRaFile(const std::string& tenFile) const;
 
-    bool taoTuCartVaCheckout(const Customer& kh,
+    bool Checkout(const Customer& kh,
                         Supermarket& sm,
                         const std::string& maDonMoi,
                         Order& out);
     
 
 };
+
 
