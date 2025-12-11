@@ -20,9 +20,3 @@ void Customer::output() {
 	cout << "Sdt:" << PhoneNumber;
 	cout << "Dia chi" << Address;
 }
-void Customer::Addcart(product* p) {
-	cart.AddProduct(p);//phuong thuc them san pham cua class cart
-}
-void Customer::Deletecart(const string& id) {
-	cart.RemoveByID(id);//phuong thuc xoa san pham cua class cart
-}
