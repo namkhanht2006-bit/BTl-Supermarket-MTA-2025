@@ -19,7 +19,7 @@ std::string Order::getTime() {
     oss << std::put_time(&local, "%Y-%m-%d %H:%M:%S");
     return oss.str();
 }
-bool Order::taoTuCartVaCheckout(const Customer &kh, Supermarket &sm, const std::string &maDonMoi, Order& out)
+bool Order::Checkout(const Customer &kh, Supermarket &sm, const std::string &maDonMoi, Order& out)
 {
     if (kh.gioHang.danhSach.empty()) {
         cout<<"Gio hang trong ";
@@ -96,5 +96,6 @@ bool Order::ghiRaFile(const std::string& tenFile) const {
     return true;
 
 }
+
 
 
