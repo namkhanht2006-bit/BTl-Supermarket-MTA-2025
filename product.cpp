@@ -24,7 +24,8 @@ istream &operator>>(istream &is, product &p) {
 ostream &operator<<(ostream &os, product &p) {
     p.in(os);
 }
-virtual bool Can_sell(int qty)  {
+bool Can_sell(int qty)  {
         return qty > 0 && quantity >= qty;
     }
+
 
