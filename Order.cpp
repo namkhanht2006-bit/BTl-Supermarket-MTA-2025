@@ -72,7 +72,7 @@ std::string Order::toTextHoaDon() const {
         hd<<"Khach hang: "<<customer_id<<endl;
         hd<<"Ngay: "<<date<<endl;
         hd<<"San pham :"<<endl;
-        for (int i=0; i<sizeof(danhSachMuc); i++) {
+        for (int i=0; i<(danhSachMuc).size; i++) {
             hd<< danhSachMuc[i].product_id <<" "<< danhSachMuc[i].name << "  SL:"<<danhSachMuc[i].amount <<" Gia sau giam:"<<danhSachMuc[i].d_price <<" Thanh tien:"<<Total();
         }
 
@@ -96,6 +96,7 @@ bool Order::ghiRaFile(const std::string& tenFile) const {
     return true;
 
 }
+
 
 
 
