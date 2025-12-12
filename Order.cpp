@@ -47,7 +47,6 @@ bool Order::ghiRaFile(const std::string& tenFile) const {
 }
 
 bool Order::Checkout(const Customer &kh, Supermarket &sm, const std::string &maDonMoi, Order& out) {
-    // simple checkout: read items from customer's cart, validate, create order
     if (kh.getCart().danhSach.empty()) return false;
     Order od(maDonMoi, kh.getCustomerId(), getTime());
     for (const Cart::MucGio& item : kh.getCart().danhSach) {
