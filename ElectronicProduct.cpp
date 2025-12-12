@@ -18,19 +18,31 @@ void ElectronicProduct::them(istream &is) {
     is>>seri;
 
 }
-void ElectronicProduct::in(ostream &os) {
+void ElectronicProduct::in(ostream &os) const {
     product::in(os);
     os<<"Thoi han bao hanh: "<<warranty<< endl;
     os<<"So seri: "<<seri<<endl;
 }
 
 istream& operator>>(istream& is, ElectronicProduct& e) {
-    e.them(is);
+    e.them_file(is);
+    return is;
 }
 
 ostream& operator<<(ostream& os, ElectronicProduct& e) {
     e.in(os);
-
+    return os;
 }
 
 
+
+bool ElectronicProduct::Can_sell(int qty) const { return product::Can_sell(qty); }
+ElectronicProduct::ElectronicProduct() {
+     warranty="";
+    seri="";
+}
+
+void ElectronicProduct::them_file(istream &is) {
+    product::them_file(is);
+    is>>warranty>>seri;
+}

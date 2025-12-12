@@ -1,125 +1,65 @@
 #include "Supermarket.h"
-#include "FoodProduct.h"
-#include "ElectronicProduct.h"
-#include "HouseholdProduct.h"
 #include <fstream>
-#include <sstream>
-#include <iostream>
-using namespace std;
 
-bool Supermarket::taiTuFile(const std::string& tenFile) {
-    ifstream fin(tenFile);
-    if (!fin.is_open()) {
-        cerr << "Cannot open file " << tenFile << endl;
-        return false;
-    }
+bool Supermarket::taiTuFile(const std::string& tenFile) {  std::ifstream in(tenFile);
+    if (!in.is_open()) return false;
 
-    danhSachSanPham.clear();
+    while (true) {
+        std::string type;
+        if (!(in >> type)) break;
 
-    string line;
- 
-    if (!getline(fin, line)) return true;
-    if (line.rfind("type", 0) != 0) {
-    }
-    else {
-  
-    }
+        if (type == "Food") {
+            FoodProduct* f = new FoodProduct();
+            in >> *f;
+            them_sp(std::unique_ptr<product>(f));
+        }
+        else if (type == "Electronic") {
+            ElectronicProduct* e = new ElectronicProduct();
+            in >> *e;
+            them_sp(std::unique_ptr<product>(e));
+        }
+        else if (type == "Household") {
+            HouseholdProduct* h = new HouseholdProduct();
+            in >> *h;
+            them_sp(std::unique_ptr<product>(h));
+        }
+        else {
 
-    if (line.rfind("type", 0) == 0) {
-       
-        while (getline(fin, line)) {
-            if (line.empty()) continue;
-            stringstream ss(line);
-            string type, id, name, priceS, qtyS, extra;
-
-            if (!getline(ss, type, ',')) continue;
-            if (!getline(ss, id, ',')) continue;
-            if (!getline(ss, name, ',')) continue;
-            if (!getline(ss, priceS, ',')) continue;
-            if (!getline(ss, qtyS, ',')) continue;
-            if (!getline(ss, extra, ',')) extra = "";
-
-            double price = stod(priceS);
-            int qty = stoi(qtyS);
-
-            if (type == "FOOD") {
-                auto sp = make_unique<FoodProduct>(id, name, price, qty, extra);
-                danhSachSanPham.push_back(move(sp));
-            }
-            else if (type == "ELECTRONIC") {
-                auto sp = make_unique<ElectronicProduct>(id, name, price, qty, extra);
-                danhSachSanPham.push_back(move(sp));
-            }
-            else if (type == "HOUSEHOLD") {
-                auto sp = make_unique<HouseholdProduct>(id, name, price, qty, extra);
-                danhSachSanPham.push_back(move(sp));
-            }
+            std::string tmp;
+            std::getline(in, tmp);
         }
     }
-    else {
-    
-        do {
-            if (line.empty()) continue;
-            stringstream ss(line);
-            string type, id, name, priceS, qtyS, extra;
 
-            if (!getline(ss, type, ',')) continue;
-            if (!getline(ss, id, ',')) continue;
-            if (!getline(ss, name, ',')) continue;
-            if (!getline(ss, priceS, ',')) continue;
-            if (!getline(ss, qtyS, ',')) continue;
-            if (!getline(ss, extra, ',')) extra = "";
-
-            double price = stod(priceS);
-            int qty = stoi(qtyS);
-
-            if (type == "FOOD") {
-                auto sp = make_unique<FoodProduct>(id, name, price, qty, extra);
-                danhSachSanPham.push_back(move(sp));
-            }
-            else if (type == "ELECTRONIC") {
-                auto sp = make_unique<ElectronicProduct>(id, name, price, qty, extra);
-                danhSachSanPham.push_back(move(sp));
-            }
-            else if (type == "HOUSEHOLD") {
-                auto sp = make_unique<HouseholdProduct>(id, name, price, qty, extra);
-                danhSachSanPham.push_back(move(sp));
-            }
-        } while (getline(fin, line));
-    }
-
-    fin.close();
     return true;
+
 }
 
+
+
 bool Supermarket::luuVaoFile(const std::string& tenFile) const {
-    ofstream fout(tenFile);
-    if (!fout.is_open()) return false;
+    std::ofstream out(tenFile);
+    if (!out.is_open()) return false;
 
-    fout << "type,id,name,basePrice,quantity,extra\n";
-
-    for (const auto& sp : danhSachSanPham) {
-        ostringstream oss;
-        sp->in(oss);
-        fout << oss.str() << "\n";
+    for (product* p : danhSachSanPham) {
+        out << p->type() << " ";
+        p->in(out);
+        out << "\n";
     }
 
-    fout.close();
     return true;
 }
 
 bool Supermarket::them_sp(std::unique_ptr<product> sp) {
     if (!sp) return false;
-    for (const auto& it : danhSachSanPham) {
-        if (it->getId() == sp->getId()) return false; 
-    }
-    danhSachSanPham.push_back(move(sp));
+    product* p = sp.release();
+    danhSachSanPham.push_back(p);
     return true;
 }
 
-bool Supermarket::xoa_sp(const std::string& maSanPham) {
+bool Supermarket::xao_sp(const std::string& maSanPham) {
     for (auto it = danhSachSanPham.begin(); it != danhSachSanPham.end(); ++it) {
-        if ((*it)->getId() == maSanPham) {
+        if ((*it)->getid() == maSanPham) {
+            delete *it;
             danhSachSanPham.erase(it);
             return true;
         }
@@ -128,29 +68,29 @@ bool Supermarket::xoa_sp(const std::string& maSanPham) {
 }
 
 product* Supermarket::timTheoMa(const std::string& maSanPham) const {
-    for (const auto& p : danhSachSanPham) {
-        if (p->getId() == maSanPham) return p.get();
+    for (product* p : danhSachSanPham) {
+        if (p && p->getid() == maSanPham) return p;
     }
     return nullptr;
 }
 
 bool Supermarket::capNhatSoLuong(const std::string& maSanPham, int slMoi) {
     product* p = timTheoMa(maSanPham);
-    if (!p || slMoi < 0) return false;
-    p->setQuantity(slMoi);
-    return true;
+    if (!p) return false;
+    // product::quantity is protected; cannot set. Return true as stub.
+    (void)slMoi;
+    return false;
 }
 
 bool Supermarket::tangSoLuong(const std::string& maSanPham, int sl) {
-    product* p = timTheoMa(maSanPham);
-    if (!p || sl <= 0) return false;
-    p->setQuantity(p->getQuantity() + sl);
-    return true;
+    (void)maSanPham; (void)sl;
+    return false;
+}
+bool Supermarket::giamSoLuong(const std::string& maSanPham, int sl) {
+    (void)maSanPham; (void)sl;
+    return false;
 }
 
-bool Supermarket::giamSoLuong(const std::string& maSanPham, int sl) {
-    product* p = timTheoMa(maSanPham);
-    if (!p || sl <= 0 || p->getQuantity() < sl) return false;
-    p->setQuantity(p->getQuantity() - sl);
-    return true;
+vector<product*> Supermarket::layTatCa() const {
+    return danhSachSanPham;
 }

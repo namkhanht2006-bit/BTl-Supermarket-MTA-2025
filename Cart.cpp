@@ -45,7 +45,7 @@ for(auto it = danhSach.begin(); it != danhSach.end();it++){
 }	
 return false;
 }
-double Cart::tong_tien()
+double Cart::tong_tien() const
 {
 	double tong = 0.0;
 

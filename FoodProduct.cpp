@@ -1,39 +1,48 @@
-include <iostream>
+#include <iostream>
 #include "FoodProduct.h"
 using namespace std;
-Foodproduct::Foodproduct(string expiry,  string nutrition) :product::product(){
-	Expiry = expiry; Nutrition = nutrition;
+
+FoodProduct::FoodProduct(string expiry_, string nutrition_) {
+    expiry = expiry_; nutrition = nutrition_;
 }
-Foodproduct::Foodproduct(){}
-Foodproduct::~Foodproduct(){}
+FoodProduct::FoodProduct(){}
+FoodProduct::~FoodProduct(){}
+
 string FoodProduct::type() const {
     return "Food";
 }
 
 double FoodProduct::price_discount(int qty) const {
-    FoodProduct p;
-    if (p.price>=500) return price * qty*0.9;
-    if (p.price>=300&&p.price <500) return price * qty * 0.94;
+    if (price >= 500) return price * qty * 0.9;
+    if (price >= 300 && price < 500) return price * qty * 0.94;
     return price * qty;
 }
-void Foodproduct::them(istream& in) {
+
+void FoodProduct::them(istream& in) {
     product::them(in);
-    cout << "Enter Expiry: "; getline(in, Expiry);
-    cout << "Enter Nutrition: "; getline(in, Nutrition);
+    // read expiry and nutrition
+    in.ignore();
+    cout << "Enter expiry: "; getline(in, expiry);
+    cout << "Enter nutrition: "; getline(in, nutrition);
 }
-void Foodproduct::in(ostream& out) const {
+
+void FoodProduct::in(ostream& out) const {
     product::in(out);
-    out << "Expiry: " << Expiry << endl;
-    out << "Nutrition: " << Nutrition << endl;
+    out << "Expiry: " << expiry << endl;
+    out << "Nutrition: " << nutrition << endl;
 }
-ostream& operator<<(ostream& out, const Foodproduct& p) {
-    p.print(out);
+
+ostream& operator<<(ostream& out, const FoodProduct& p) {
+    p.in(out);
     return out;
 }
-istream& operator>>(istream& in, Foodproduct& p) {
-    p.input(in);
+istream& operator>>(istream& in, FoodProduct& p) {
+    p.them_file(in);
     return in;
 }
 
-
-
+bool FoodProduct::Can_sell(int qty) const { return product::Can_sell(qty); }
+void FoodProduct::them_file(istream& in) {
+    product::them_file(in);
+    in>>expiry>>nutrition;;
+}

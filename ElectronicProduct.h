@@ -1,6 +1,6 @@
 #include"product.h"
 #include<vector>
-class ElectronicProduct:product{
+class ElectronicProduct : public product {
     protected:
     string warranty;
     string seri;
@@ -10,13 +10,18 @@ public:
     double price_discount(int qty) const;
     string type() const;
     void them(istream &is) override;
-    void in(ostream &os) override;
-    bool Can_sell(int qty);
+    void in(ostream &os) const override;
+    bool Can_sell(int qty) const override;
     friend istream& operator>>(istream& is, ElectronicProduct& e);
-    friend ostream& operator<<(ostream& os, ElectronicProduct& e);
+    friend ostream& operator<<(ostream& os, const ElectronicProduct& e);
     ElectronicProduct();
     ElectronicProduct(string expiry,string nutrition);
     ~ElectronicProduct();
+
+    void setWarranty(string wrt){ warranty = wrt; };
+    void setSeri(string ser){ seri = ser; };
+
+    void them_file(istream &is) ;
 };
 
 

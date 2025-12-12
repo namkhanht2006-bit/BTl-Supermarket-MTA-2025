@@ -1,94 +1,146 @@
 #include <iostream>
-#include <sstream>
+#include <string>
+#include <vector>
 #include <memory>
+
 #include "Supermarket.h"
-#include "FoodProduct.h"
-#include "ElectronicProduct.h"
-#include "HouseholdProduct.h"
+#include "Customer.h"
+#include "Order.h"
+
 using namespace std;
 
-void showMenu() {
-    cout << "\n=== SUPERMARKET MENU ===\n";
-    cout << "1. Load products from prrr.txt\n";
-    cout << "2. Show all products\n";
-    cout << "3. Add product\n";
-    cout << "4. Delete product by ID\n";
-    cout << "5. Search product by ID\n";
-    cout << "6. Save products to file\n";
-    cout << "0. Exit\n";
-    cout << "Choose: ";
+void printMenu() {
+    cout << "\n ---MENU SIEU--- \n";
+    cout << "1. Them san pham (nhap tu ban phim)\n";
+    cout << "2. Hien thi tat ca san pham\n";
+    cout << "3. Them san pham vao gio (theo ma)\n";
+    cout << "4. Xem gio hang\n";
+    cout << "5. Checkout\n";
+    cout << "6. Tai san pham tu file\n";
+    cout << "7. Thoat\n";
+    cout << "Lua chon: ";
 }
 
 int main() {
     Supermarket sm;
-    int choice = -1;
+    Customer kh;
 
-    while (choice != 0) {
-        showMenu();
-        if (!(cin >> choice)) { cin.clear(); cin.ignore(10000, '\n'); continue; }
-        cin.ignore(10000, '\n');
+    while (true) {
+        printMenu();
+        int choice;
+        if (!(cin >> choice)) {
+            cin.clear();
+            string skip;
+            getline(cin, skip);
+            cout << "Nhap khong hop le. Thu lai.\n";
+            continue;
+        }
 
         if (choice == 1) {
-            if (sm.taiTuFile("prrr.txt")) cout << "Loaded OK\n";
-            else cout << "Load failed\n";
+            cout << "Chon loai san pham de nhap:\n";
+            cout << "1 - FoodProduct\n2 - ElectronicProduct\n3 - HouseholdProduct\nLua chon: ";
+            int t;
+            cin >> t;
+            cin.ignore();
+
+            if (t == 1) {
+                FoodProduct* f = new FoodProduct();
+                cout << "Nhap thong tin FoodProduct (theo yeu cau class):\n";
+                cin >> *f;
+                sm.them_sp(std::unique_ptr<product>(f));
+                cout << "Da them FoodProduct vao sieu thi.\n";
+            } else if (t == 2) {
+                ElectronicProduct* e = new ElectronicProduct();
+                cout << "Nhap thong tin ElectronicProduct:\n";
+                cin >> *e;
+                sm.them_sp(std::unique_ptr<product>(e));
+                cout << "Da them ElectronicProduct vao sieu thi.\n";
+            } else if (t == 3) {
+                HouseholdProduct* h = new HouseholdProduct();
+                cout << "Nhap thong tin HouseholdProduct:\n";
+                cin >> *h;
+                sm.them_sp(std::unique_ptr<product>(h));
+                cout << "Da them HouseholdProduct vao sieu thi.\n";
+            } else {
+                cout << "Lua chon khong hop le.\n";
+            }
         }
         else if (choice == 2) {
-            cout << "---- Products ----\n";
-            for (const auto& pptr : sm.layTatCa()) {
-                ostringstream oss;
-                pptr->in(oss);
-                cout << oss.str() << "\n";
+            cout << "\n--- Danh sach san pham ---\n";
+            vector<product*> ds = sm.layTatCa();
+            for (size_t i = 0; i < ds.size(); ++i) {
+                product* p = ds[i];
+                if (p != NULL) {
+                    cout << *p << "\n";
+                }
             }
         }
         else if (choice == 3) {
-            cout << "Choose type (1=FOOD,2=ELECTRONIC,3=HOUSEHOLD): ";
-            int t; cin >> t; cin.ignore(10000, '\n');
-
-            string id, name, extra;
-            double price; int qty;
-
-            cout << "ID: "; getline(cin, id);
-            cout << "Name: "; getline(cin, name);
-            cout << "Price: "; cin >> price; cin.ignore(10000, '\n');
-            cout << "Quantity: "; cin >> qty; cin.ignore(10000, '\n');
-
-            if (t == 1) {
-                cout << "Expiry (YYYY-MM-DD): "; getline(cin, extra);
-                auto p = make_unique<FoodProduct>(id, name, price, qty, extra);
-                if (sm.them_sp(move(p))) cout << "Added.\n"; else cout << "Add failed (dup id?)\n";
-            }
-            else if (t == 2) {
-                cout << "Warranty (months/text): "; getline(cin, extra);
-                auto p = make_unique<ElectronicProduct>(id, name, price, qty, extra);
-                if (sm.them_sp(move(p))) cout << "Added.\n"; else cout << "Add failed (dup id?)\n";
-            }
-            else if (t == 3) {
-                cout << "Material: "; getline(cin, extra);
-                auto p = make_unique<HouseholdProduct>(id, name, price, qty, extra);
-                if (sm.them_sp(move(p))) cout << "Added.\n"; else cout << "Add failed (dup id?)\n";
-            }
-            else {
-                cout << "Invalid type\n";
+            string ma;
+            int soLuong;
+            cout << "Nhap ma san pham can them vao gio: ";
+            cin >> ma;
+            cout << "Nhap so luong: ";
+            cin >> soLuong;
+            product* p = sm.timTheoMa(ma);
+            if (p == NULL) {
+                cout << "Khong tim thay san pham co ma " << ma << "\n";
+            } else {
+                bool ok = kh.getCart().them(p, soLuong);
+                if (ok) cout << "Da them vao gio: " << ma << " SL=" << soLuong << "\n";
+                else cout << "Them vao gio that bai (co the la so luong khong hop le)\n";
             }
         }
         else if (choice == 4) {
-            string id; cout << "Enter ID to delete: "; getline(cin, id);
-            if (sm.xoa_sp(id)) cout << "Deleted.\n"; else cout << "Not found.\n";
+            cout << "\n--- Gio hang cua khach ---\n";
+            const Cart& cartref = kh.getCart();
+            for (size_t i = 0; i < cartref.danhSach.size(); ++i) {
+                const Cart::MucGio& mg = cartref.danhSach[i];
+                cout << "MaSP: " << mg.maSP << " | So luong: " << mg.Soluong << " | Don gia: " << mg.price << "\n";
+            }
+            cout << "Tong tien: " << kh.getCart().tong_tien() << "\n";
         }
         else if (choice == 5) {
-            string id; cout << "Enter ID to search: "; getline(cin, id);
-            product* p = sm.timTheoMa(id);
-            if (p) {
-                ostringstream oss; p->in(oss); cout << oss.str() << "\n";
+            cout << "Thuc hien checkout...\n";
+            string maDon;
+            cout << "Nhap ma don (vi du: DH001): ";
+            cin >> maDon;
+
+            Order outOrder;
+            bool ok = outOrder.Checkout(kh, sm, maDon, outOrder);
+            if (ok) {
+                cout << "Checkout thanh cong. Hoa don:\n";
+                cout << outOrder.toTextHoaDon() << "\n";
+
+                string tenFile = string("HoaDon_") + maDon + string(".txt");
+                bool saved = outOrder.ghiRaFile(tenFile);
+                if (saved) cout << "Da luu file: " << tenFile << "\n";
+                else cout << "Luu file that bai.\n";
+            } else {
+                cout << "Checkout that bai.\n";
             }
-            else cout << "Not found\n";
         }
         else if (choice == 6) {
-            if (sm.luuVaoFile("prrr_out.txt")) cout << "Saved to prrr_out.txt\n";
-            else cout << "Save failed\n";
+
+            string filename;
+            cout << "Nhap ten file chua danh sach san pham (vi du: products.txt): ";
+            cin >> filename;
+            bool loaded = sm.taiTuFile(filename);
+            if (loaded) {
+                cout << "Tai file thanh cong.\n";
+            } else {
+                cout << "Khong the doc file hoac file rong / chua duoc implement.\n";
+                cout << "HINT: neu ham taiTuFile chua duoc implement trong Supermarket.cpp, ban can implement de hoat dong.\n";
+            }
+        }
+        else if (choice == 7) {
+            cout << "Thoat chuong trinh.\n";
+            break;
+        }
+        else {
+            cout << "Lua chon khong hop le.\n";
         }
     }
 
-    cout << "Bye\n";
     return 0;
 }

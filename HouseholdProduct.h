@@ -1,6 +1,6 @@
 #include"product.h"
 #include<vector>
-class HouseholdProduct:product{
+class HouseholdProduct : public product {
     string material;
     string usage;
 public:
@@ -10,11 +10,16 @@ public:
     string getUsage() const { return usage; }
     double price_discount(int qty) const;
     string type() const;
-    bool Can_sell(int qty);
-    Householdproduct();
-    Householdproduct(string Usage,string Material);
-    ~Householdproduct();
-    friend ostream& operator<<(ostream& out, const Householdproduct& p);
-    friend istream& operator>>(istream& in, Householdproduct& p);
+    bool Can_sell(int qty) const;
+    HouseholdProduct();
+    HouseholdProduct(string Usage,string Material);
+    ~HouseholdProduct();
+    friend  ostream& operator<<(ostream& out, const HouseholdProduct& p);
+    friend  istream& operator>>(istream& in, HouseholdProduct& p);
+
+    void setMaterial(std::string mtr) { material = mtr; }
+    void setUsage(string usg) { usage = usg; }
+
+    void them_file(istream &is) override;
 };
 
