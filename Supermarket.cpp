@@ -1,101 +1,80 @@
 #include "Supermarket.h"
 #include <fstream>
 
-bool Supermarket::taiTuFile(const std::string& tenFile) {  std::ifstream in(tenFile);
-    if (!in.is_open()) return false;
+Supermarket::Supermarket() {}
 
-    while (true) {
-        std::string type;
-        if (!(in >> type)) break;
-
-        if (type == "Food") {
-            FoodProduct* f = new FoodProduct();
-            in >> *f;
-            them_sp(std::unique_ptr<product>(f));
-        }
-        else if (type == "Electronic") {
-            ElectronicProduct* e = new ElectronicProduct();
-            in >> *e;
-            them_sp(std::unique_ptr<product>(e));
-        }
-        else if (type == "Household") {
-            HouseholdProduct* h = new HouseholdProduct();
-            in >> *h;
-            them_sp(std::unique_ptr<product>(h));
-        }
-        else {
-
-            std::string tmp;
-            std::getline(in, tmp);
-        }
-    }
-
-    return true;
-
+Supermarket::~Supermarket() {
+    for (product* p : ds)
+        delete p;
 }
 
-
-
-bool Supermarket::luuVaoFile(const std::string& tenFile) const {
-    std::ofstream out(tenFile);
-    if (!out.is_open()) return false;
-
-    for (product* p : danhSachSanPham) {
-        out << p->type() << " ";
-        p->in(out);
-        out << "\n";
-    }
-
+bool Supermarket::them_sp(product* p) {
+    if (!p) return false;
+    ds.push_back(p);
     return true;
 }
 
-bool Supermarket::them_sp(std::unique_ptr<product> sp) {
-    if (!sp) return false;
-    product* p = sp.release();
-    danhSachSanPham.push_back(p);
-    return true;
+product* Supermarket::timTheoMa(const std::string& ma) const {
+    for (product* p : ds)
+        if (p->getid() == ma)
+            return p;
+    return nullptr;
 }
 
-bool Supermarket::xao_sp(const std::string& maSanPham) {
-    for (auto it = danhSachSanPham.begin(); it != danhSachSanPham.end(); ++it) {
-        if ((*it)->getid() == maSanPham) {
+bool Supermarket::xoa_sp(const std::string& ma) {
+    for (auto it = ds.begin(); it != ds.end(); ++it) {
+        if ((*it)->getid() == ma) {
             delete *it;
-            danhSachSanPham.erase(it);
+            ds.erase(it);
             return true;
         }
     }
     return false;
 }
 
-product* Supermarket::timTheoMa(const std::string& maSanPham) const {
-    for (product* p : danhSachSanPham) {
-        if (p && p->getid() == maSanPham) return p;
-    }
-    return nullptr;
+std::vector<product*> Supermarket::layTatCa() const {
+    return ds;
 }
 
-bool Supermarket::capNhatSoLuong(const std::string& maSanPham, int slMoi) {
-    product* p = timTheoMa(maSanPham);
+bool Supermarket::taiTuFile(const std::string& file) {
+    std::ifstream in(file);
+    if (!in) return false;
+
+    while (true) {
+        std::string type;
+        if (!(in >> type)) break;
+
+        product* p = nullptr;
+        if (type == "Food") p = new FoodProduct();
+        else if (type == "Electronic") p = new ElectronicProduct();
+        else if (type == "Household") p = new HouseholdProduct();
+        else { std::string skip; std::getline(in, skip); continue; }
+
+        in >> *p;
+        ds.push_back(p);
+    }
+    return true;
+}
+
+bool Supermarket::luuVaoFile(const std::string& file) const {
+    std::ofstream out(file);
+    if (!out) return false;
+
+    for (product* p : ds) {
+        out << p->type() << " ";
+        p->in(out);
+        out << "\n";
+    }
+    return true;
+}
+bool Supermarket::giamSoLuong(const std::string& ma, int sl) {
+    if (sl <= 0) return false;
+    product* p = timTheoMa(ma);
     if (!p) return false;
 
-    (void)slMoi;
-    return false;
-}
+    int cur = p->getquantity();
+    if (cur < sl) return false;
 
-bool Supermarket::tangSoLuong(const std::string& maSanPham, int sl) {
-    (void)maSanPham; (void)sl;
-    return false;
+    p->setquantity(cur - sl);
+    return true;
 }
-bool Supermarket::giamSoLuong(const std::string& maSanPham, int sl) {
-    (void)maSanPham; (void)sl;
-    return false;
-}
-
-vector<product*> Supermarket::layTatCa() const {
-    return danhSachSanPham;
-}
-Supermarket::~Supermarket() {
-}
-Supermarket::Supermarket() {
-}
-

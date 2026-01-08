@@ -1,7 +1,6 @@
 #include <iostream>
 #include <string>
 #include <vector>
-#include <memory>
 
 #include "Supermarket.h"
 #include "Customer.h"
@@ -47,19 +46,19 @@ int main() {
                 FoodProduct* f = new FoodProduct();
                 cout << "Nhap thong tin FoodProduct (theo yeu cau class):\n";
                 cin >> *f;
-                sm.them_sp(std::unique_ptr<product>(f));
+                sm.them_sp(f);
                 cout << "Da them FoodProduct vao sieu thi.\n";
             } else if (t == 2) {
                 ElectronicProduct* e = new ElectronicProduct();
                 cout << "Nhap thong tin ElectronicProduct:\n";
                 cin >> *e;
-                sm.them_sp(std::unique_ptr<product>(e));
+                sm.them_sp(e);
                 cout << "Da them ElectronicProduct vao sieu thi.\n";
             } else if (t == 3) {
                 HouseholdProduct* h = new HouseholdProduct();
                 cout << "Nhap thong tin HouseholdProduct:\n";
                 cin >> *h;
-                sm.them_sp(std::unique_ptr<product>(h));
+                sm.them_sp(h);
                 cout << "Da them HouseholdProduct vao sieu thi.\n";
             } else {
                 cout << "Lua chon khong hop le.\n";
@@ -96,7 +95,9 @@ int main() {
             const Cart& cartref = kh.getCart();
             for (size_t i = 0; i < cartref.danhSach.size(); ++i) {
                 const Cart::MucGio& mg = cartref.danhSach[i];
-                cout << "MaSP: " << mg.maSP << " | So luong: " << mg.Soluong << " | Don gia: " << mg.price << "\n";
+                cout << "MaSP: " << mg.maSP
+                     << " | So luong: " << mg.Soluong
+                     << " | Don gia: " << mg.price << "\n";
             }
             cout << "Tong tien: " << kh.getCart().tong_tien() << "\n";
         }
@@ -121,7 +122,6 @@ int main() {
             }
         }
         else if (choice == 6) {
-
             string filename;
             cout << "Nhap ten file chua danh sach san pham (vi du: products.txt): ";
             cin >> filename;
