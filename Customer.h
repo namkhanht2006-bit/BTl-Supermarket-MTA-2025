@@ -1,26 +1,21 @@
-#pragma once
-#include "Cart.h"
-#include <string>
-
+#include"product.h"
+#include"Cart.h"
+#include"Supermarket.h"
 class Customer {
-private:
-    Cart cart;
-    std::string Name;
-    std::string Gender;
-    std::string PhoneNumber;
-    std::string Address;
-    double Age;
 public:
-    Customer();
-    Customer(const std::string& name, const std::string& gender, const std::string& phonenumber, const std::string& address, double age);
-    ~Customer();
+    std::string customer_id;
+    std::string name;
+    Cart gioHang;
 
-    void input();
-    void output();
+    Customer() = default;
+    Customer(std::string ma, std::string ten)
+        : customer_id(std::move(ma)), name(std::move(ten)) {}
 
-    // Chỉ khai báo 1 cặp getCart (non-const + const)
-    Cart& getCart() { return cart; }
-    const Cart& getCart() const { return cart; }
-    std::string getCustomerId() const { return PhoneNumber; }
-    std::string getName() const { return Name; }
+    void deletecart() { gioHang.danhSach.clear(); }
+
+
+    bool ThemSP(Supermarket& sieuThi, const std::string& maSanPham, int soLuong);
+    bool XoaSp(const std::string& maSanPham);
+    bool ThaySl(const std::string& maSanPham, int soLuongMoi);
+
 };

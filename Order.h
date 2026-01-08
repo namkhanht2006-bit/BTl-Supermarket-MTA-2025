@@ -1,7 +1,7 @@
-#include "Supermarket.h"
 
 #include"OrderItem.h"
 #include"Customer.h"
+#include<optional>
 #include<vector>
 class Order {
 public:
@@ -10,7 +10,7 @@ public:
     std::string date;
     std::vector<OrderItem> danhSachMuc;
 
-    Order();
+    Order() = default;
     Order(std::string maDon_, std::string maKhach_, std::string ngayGio_)
         : order_id(maDon_), customer_id(maKhach_), date(ngayGio_) {}
 
@@ -19,12 +19,10 @@ public:
     std::string toTextHoaDon() const;
     bool ghiRaFile(const std::string& tenFile) const;
 
-    bool Checkout(const Customer& kh,
+    bool taoTuCartVaCheckout(const Customer& kh,
                         Supermarket& sm,
                         const std::string& maDonMoi,
                         Order& out);
-    
+
 
 };
-
-

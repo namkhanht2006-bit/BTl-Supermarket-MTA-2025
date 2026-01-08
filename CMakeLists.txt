@@ -4,12 +4,21 @@ project(supermarket)
 set(CMAKE_CXX_STANDARD 20)
 
 add_executable(supermarket main.cpp
-        Order.cpp
-        Customer.cpp
-        ElectronicProduct.cpp
-        FoodProduct.cpp
-        HouseholdProduct.cpp
-        OrderItem.cpp
         product.cpp
+        product.h
+        FoodProduct.cpp
+        FoodProduct.h
+        ElectronicProduct.cpp
+        ElectronicProduct.h
+        HouseholdProduct.cpp
+        HouseholdProduct.h
         Supermarket.cpp
-        Cart.cpp)
+        Supermarket.h
+        Cart.cpp
+        Cart.h
+        Customer.cpp
+        Customer.h
+        Order.cpp
+        Order.h
+        OrderItem.cpp
+        OrderItem.h)
