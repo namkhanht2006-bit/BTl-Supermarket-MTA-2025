@@ -13,7 +13,7 @@ double ElectronicProduct::price_discount(int qty) const {
 
 void ElectronicProduct::them(istream& is) {
     product::them(is);
-    cout << "Nhap bao hanh: " << endl;
+    cout << "Nhap bao hanh: ";
     is >> warranty;
 }
 
