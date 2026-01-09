@@ -11,7 +11,7 @@ protected:
     string id;
     double price;
     string brand;
-    float weight;
+    double weight;
     int quantity;
 public:
     virtual double price_discount(int qty) const = 0;
@@ -23,15 +23,16 @@ public:
     friend istream& operator>>(istream& in, product& p);
     virtual bool Can_sell(int qty) const;
 
-    void setid(const std::string& v) { id = v; }
-    void setname(const std::string& v) { name = v; }
+    void setid(const string& v) { id = v; }
+    void setname(const string& v) { name = v; }
     void setprice(double v) { price = v; }
-    void setbrand(const std::string& v) { brand = v; }
+    void setbrand(const string& v) { brand = v; }
     void setquantity(int v) { quantity = v; }
     void setweight(double v) { weight = v; }
-    std::string getid() const { return id; }
-    std::string getname() const { return name; }
+    string getid() const { return id; }
+    string getname() const { return name; }
     double getprice() const { return price; }
     int getquantity() const { return quantity; }
     double getweight() const { return weight; }
+    string getbrand()const { return brand; }
 };
