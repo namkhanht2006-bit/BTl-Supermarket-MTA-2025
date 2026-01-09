@@ -26,13 +26,13 @@ string HouseholdProduct::type() const {
 void HouseholdProduct::them(istream& in) {
     product::them(in);
     in.ignore();
-    cout << "Enter Usage: "; getline(in, usage);
-    cout << "Enter Material: "; getline(in, material);
+    cout << "Nhap cong dung: "; getline(in, usage);
+    cout << "Nhap thanh phan cau tao: "; getline(in, material);
 }
 void HouseholdProduct::in(ostream& out) const {
     product::in(out);
-    out << "Usage: " << usage << endl;
-    out << "Material: " << material << endl;
+    out << "Cong dung: " << usage << endl;
+    out << "Thanh phan cao tao: " << material << endl;
 }
 
 bool HouseholdProduct::Can_sell(int qty) const { return product::Can_sell(qty); }
