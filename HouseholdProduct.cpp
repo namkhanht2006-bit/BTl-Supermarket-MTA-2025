@@ -3,16 +3,12 @@
 using namespace std;
 
 double HouseholdProduct::price_discount(int qty) const {
-    if (price >= 500) return price * qty * 0.85;
-    if (price >= 200 && price < 500) return price * qty * 0.90;
+    if (price*qty >= 1500000) return price * qty * 0.75;
+    if (price >= 800000 && price < 1500000) return price * qty * 0.85;
     return price * qty;
 }
 
-HouseholdProduct::HouseholdProduct(string Usage, string Material) {
-    usage = Usage; material = Material;
-}
-HouseholdProduct::HouseholdProduct(){}
-HouseholdProduct::~HouseholdProduct(){}
+
 
 ostream& operator<<(ostream& out, const HouseholdProduct& p) {
     p.in(out);
@@ -36,11 +32,21 @@ void HouseholdProduct::them(istream& in) {
 void HouseholdProduct::in(ostream& out) const {
     product::in(out);
     out << "Usage: " << usage << endl;
-    out << "Material: " << material<< endl;
+    out << "Material: " << material << endl;
 }
 
 bool HouseholdProduct::Can_sell(int qty) const { return product::Can_sell(qty); }
 void HouseholdProduct::them_file(istream& in) {
     product::them_file(in);
-    in>>material>>usage;
+    in >> material >> usage;
 }
+
+HouseholdProduct::HouseholdProduct(string usage, string material) {
+    this->usage = usage; this-> material = material;
+}
+
+HouseholdProduct::HouseholdProduct() {
+    usage = "khong"; material = "go";
+}
+
+HouseholdProduct::~HouseholdProduct() {}
