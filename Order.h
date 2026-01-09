@@ -6,13 +6,15 @@
 class Order {
 public:
     std::string order_id;
-    std::string customer_id;
+    std::string c_name;
+    std::string c_id;
     std::string date;
+    std::string timein;
     std::vector<OrderItem> danhSachMuc;
 
     Order();
-    Order(std::string maDon_, std::string maKhach_, std::string ngayGio_)
-        : order_id(maDon_), customer_id(maKhach_), date(ngayGio_) {}
+    Order(std::string maDon,std::string tenKh, std::string maKH, std::string ngayGio_,std::string gio)
+        : order_id(maDon),c_name(tenKh),c_id(maKH), date(ngayGio_), timein(gio) {};
 
     double Total() const;
     std::string getTime();
@@ -23,7 +25,10 @@ public:
                         Supermarket& sm,
                         const std::string& maDonMoi,
                         Order& out);
-    
+    std::string nhapDate();
+    std::string nhapTimein();
+
+
 
 };
 

@@ -9,14 +9,17 @@
 using namespace std;
 
 void printMenu() {
-    cout << "\n ---MENU SIEU--- \n";
+    cout << "\n ---MENU SIEU THI--- \n";
     cout << "1. Them san pham (nhap tu ban phim)\n";
     cout << "2. Hien thi tat ca san pham\n";
-    cout << "3. Them san pham vao gio (theo ma)\n";
-    cout << "4. Xem gio hang\n";
-    cout << "5. Checkout\n";
-    cout << "6. Tai san pham tu file\n";
-    cout << "7. Thoat\n";
+    cout << "3. Nhap thong tin khach hang\n";
+    cout << "4. Them san pham vao gio (theo ma)\n";
+    cout << "5. Xem gio hang\n";
+    cout << "6. Xoa san pham khoi gio hang\n";
+    cout << "7. Thay doi so luong trong gio hang\n";
+    cout << "8. Checkout\n";
+    cout << "9. Tai san pham tu file\n";
+    cout << "10. Thoat\n";
     cout << "Lua chon: ";
 }
 
@@ -44,20 +47,20 @@ int main() {
 
             if (t == 1) {
                 FoodProduct* f = new FoodProduct();
-                cout << "Nhap thong tin FoodProduct (theo yeu cau class):\n";
-                cin >> *f;
+                cout << "Nhap thong tin sp.: \n";
+                f->them(cin);
                 sm.them_sp(f);
                 cout << "Da them FoodProduct vao sieu thi.\n";
             } else if (t == 2) {
                 ElectronicProduct* e = new ElectronicProduct();
                 cout << "Nhap thong tin ElectronicProduct:\n";
-                cin >> *e;
+                e->them(cin);
                 sm.them_sp(e);
                 cout << "Da them ElectronicProduct vao sieu thi.\n";
             } else if (t == 3) {
                 HouseholdProduct* h = new HouseholdProduct();
                 cout << "Nhap thong tin HouseholdProduct:\n";
-                cin >> *h;
+                h->them(cin);
                 sm.them_sp(h);
                 cout << "Da them HouseholdProduct vao sieu thi.\n";
             } else {
@@ -75,6 +78,11 @@ int main() {
             }
         }
         else if (choice == 3) {
+
+            cout<< "Nhap thong tin khach hang: \n";
+            kh.input();
+        }
+        else if (choice == 4) {
             string ma;
             int soLuong;
             cout << "Nhap ma san pham can them vao gio: ";
@@ -90,7 +98,7 @@ int main() {
                 else cout << "Them vao gio that bai (co the la so luong khong hop le)\n";
             }
         }
-        else if (choice == 4) {
+        else if (choice == 5) {
             cout << "\n--- Gio hang cua khach ---\n";
             const Cart& cartref = kh.getCart();
             for (size_t i = 0; i < cartref.danhSach.size(); ++i) {
@@ -101,7 +109,33 @@ int main() {
             }
             cout << "Tong tien: " << kh.getCart().tong_tien() << "\n";
         }
-        else if (choice == 5) {
+        else if (choice == 6) {
+            string ma;
+            Cart& cart = kh.getCart();
+            cout << "Nhap ma san pham can xoa khoi gio hang: ";
+            cin >> ma;
+            if (cart.xoa(ma)) {
+                cout << "Da xoa san pham khoi gio hang.\n";
+            } else {
+                cout << "Khong tim thay san pham trong gio hang.\n";
+            }
+        }
+        else if (choice == 7) {
+            string ma;
+            Cart& cart = kh.getCart();
+            int sl_moi;
+            cout << "Nhap ma san pham: ";
+            cin >> ma;
+            cout << "Nhap so luong moi: ";
+            cin >> sl_moi;
+            if (cart.thay_sl(ma, sl_moi)) {
+                cout << "Da cap nhat so luong san pham.\n";
+            } else {
+                cout << "Khong tim thay san pham trong gio hang.\n";
+            }
+
+        }
+        else if (choice == 8) {
             cout << "Thuc hien checkout...\n";
             string maDon;
             cout << "Nhap ma don (vi du: DH001): ";
@@ -121,7 +155,7 @@ int main() {
                 cout << "Checkout that bai.\n";
             }
         }
-        else if (choice == 6) {
+        else if (choice == 9) {
             string filename;
             cout << "Nhap ten file chua danh sach san pham (vi du: products.txt): ";
             cin >> filename;
@@ -133,7 +167,7 @@ int main() {
                 cout << "HINT: neu ham taiTuFile chua duoc implement trong Supermarket.cpp, ban can implement de hoat dong.\n";
             }
         }
-        else if (choice == 7) {
+        else if (choice == 10) {
             cout << "Thoat chuong trinh.\n";
             break;
         }

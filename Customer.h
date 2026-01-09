@@ -6,13 +6,11 @@ private:
     Cart cart;
     std::string Id;
     std::string Name;
-    std::string Gender;
-    std::string PhoneNumber;
-    std::string Address;
+
     double Age;
 public:
     Customer();
-    Customer(const std::string& name, const std::string& gender, const std::string& phonenumber, const std::string& address, double age);
+    Customer(const std::string& name,const std::string& id);
     ~Customer();
     void input();
     void output();

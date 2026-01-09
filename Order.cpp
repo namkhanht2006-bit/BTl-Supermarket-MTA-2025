@@ -4,19 +4,15 @@
 #include <iomanip>
 #include <sstream>
 
-std::string Order::getTime() {
-    using namespace std::chrono;
-    auto now = system_clock::now();
-    std::time_t now_c = system_clock::to_time_t(now);
-    std::tm local{};
-#if defined(_WIN32)
-    localtime_s(&local, &now_c);
-#else
-    localtime_r(&now_c, &local);
-#endif
-    std::ostringstream oss;
-    oss << std::put_time(&local, "%Y-%m-%d %H:%M:%S");
-    return oss.str();
+std::string Order::nhapDate() {
+    cout << "nhap ngay in hoa don:";
+    cin >> date;
+    return date;
+}
+std::string Order::nhapTimein() {
+    cout << "nhap thoi gian in hoa don:";
+    cin >> timein;
+    return timein;
 }
 
 double Order::Total() const {
@@ -28,8 +24,10 @@ double Order::Total() const {
 std::string Order::toTextHoaDon() const {
     std::ostringstream oss;
     oss << "Hoa don: " << order_id << "\n";
-    oss << "Khach hang: " << customer_id << "\n";
+    oss << "Ten khach hang: " << c_name << "\n";
+    oss << "Ma khach hang: "<< c_id<<"\n";
     oss << "Ngay: " << date << "\n";
+    oss << "Thoi gian: "<< timein << "\n";
     oss << "San pham:\n";
     for (const auto &it : danhSachMuc) {
         oss << it.product_id << " " << it.name << " SL=" << it.amount << " Price=" << it.buy << "\n";
@@ -47,9 +45,10 @@ bool Order::ghiRaFile(const std::string& tenFile) const {
 }
 
 bool Order::Checkout(const Customer &kh, Supermarket &sm, const std::string &maDonMoi, Order& out) {
-
+    Order::nhapDate();
+    Order::nhapTimein();
     if (kh.getCart().danhSach.empty()) return false;
-    Order od(maDonMoi, kh.getCustomerId(), getTime());
+    Order od(maDonMoi,kh.getName(),kh.getCustomerId(), date, timein);
     for (const Cart::MucGio& item : kh.getCart().danhSach) {
         product* p = sm.timTheoMa(item.maSP);
         if (!p) return false;
@@ -69,5 +68,5 @@ bool Order::Checkout(const Customer &kh, Supermarket &sm, const std::string &maD
     return true;
 }
 Order::Order()
-    : order_id(""), customer_id(""), date(""), danhSachMuc()
+    : order_id(""), c_name(""), c_id(""), date(""), danhSachMuc()
 {}

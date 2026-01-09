@@ -1,31 +1,26 @@
 #include "Customer.h"
 #include <iostream>
 
-Customer::Customer(const std::string& name,const std::string& gender,const std::string& phonenumber,const std::string& address,double age)
+Customer::Customer(const std::string& name,const std::string& ma)
 {
-    Name = name;Gender = gender;PhoneNumber = phonenumber;Address = address;Age = age;
+    Name = name;Id = ma;
 }
 
 Customer::Customer() {
     Name = "Thinh dz";
-    Gender = "Nam";
-    PhoneNumber = "0378593671";
-    Address = "Ha Noi";
+    Id = "T001";
+
     Age = 19;
 }
 Customer::~Customer() {}
 void Customer::input() {
-    std::cout << "nhap ten khach hang:"; std::getline(std::cin, Name);
-    std::cout << "nhap tuoi khach hang:"; std::cin >> Age; std::cin.ignore();
-    std::cout << "nhap gioi tinh khach hang:"; std::getline(std::cin, Gender);
-    std::cout << "nhap sdt khach hang:"; std::cin >> PhoneNumber; std::cin.ignore();
-    std::cout << "nhap dia chi khach hang:"; std::getline(std::cin, Address);
+    std::cout << "nhap ten khach hang:"; std::getline(std::cin>>ws, Name);
+    std::cout << "nhap ma khach hang:"; std::getline(std::cin>>ws,Id );
+
 }
 
 void Customer::output() {
     std::cout << "Ho va ten : " << Name << "\n";
-    std::cout << "Tuoi: " << Age << "\n";
-    std::cout << "Gioi tinh: " << Gender << "\n";
-    std::cout << "Sdt: " << PhoneNumber << "\n";
-    std::cout << "Dia chi: " << Address << "\n";
+    std::cout << "Ma: " << Id << "\n";
+
 }

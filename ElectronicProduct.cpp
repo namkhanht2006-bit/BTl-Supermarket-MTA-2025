@@ -14,14 +14,13 @@ void ElectronicProduct::them(istream &is) {
     product::them(is);
     cout<<"Nhap bao hanh: "<<endl;
     is>>warranty;
-    cout<<"Nhap so seri: "<<endl;
-    is>>seri;
+
 
 }
 void ElectronicProduct::in(ostream &os) const {
     product::in(os);
     os<<"Thoi han bao hanh: "<<warranty<< endl;
-    os<<"So seri: "<<seri<<endl;
+
 }
 
 istream& operator>>(istream& is, ElectronicProduct& e) {
@@ -39,10 +38,10 @@ ostream& operator<<(ostream& os, ElectronicProduct& e) {
 bool ElectronicProduct::Can_sell(int qty) const { return product::Can_sell(qty); }
 ElectronicProduct::ElectronicProduct() {
      warranty="";
-    seri="";
+
 }
 
 void ElectronicProduct::them_file(istream &is) {
     product::them_file(is);
-    is>>warranty>>seri;
+    is>>warranty;
 }
