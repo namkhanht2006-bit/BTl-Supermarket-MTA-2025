@@ -5,6 +5,9 @@
 #include "Supermarket.h"
 #include "Customer.h"
 #include "Order.h"
+#include"ElectronicProduct.h"
+#include"FoodProduct.h"
+#include"HouseholdProduct.h"
 
 using namespace std;
 
@@ -163,8 +166,7 @@ int main() {
             if (loaded) {
                 cout << "Tai file thanh cong.\n";
             } else {
-                cout << "Khong the doc file hoac file rong / chua duoc implement.\n";
-                cout << "HINT: neu ham taiTuFile chua duoc implement trong Supermarket.cpp, ban can implement de hoat dong.\n";
+                cout << "Khong the doc file hoac file rong .\n";
             }
         }
         else if (choice == 10) {
