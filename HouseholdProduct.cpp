@@ -3,8 +3,8 @@
 using namespace std;
 
 double HouseholdProduct::price_discount(int qty) const {
-    if (price*qty >= 1500000) return price * qty * 0.75;
-    if (price >= 800000 && price < 1500000) return price * qty * 0.85;
+    if (price*qty >= 1500) return price * qty * 0.75;
+    if (price >= 800 && price < 1500) return price * qty * 0.85;
     return price * qty;
 }
 

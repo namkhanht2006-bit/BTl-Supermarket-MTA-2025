@@ -13,8 +13,8 @@ string FoodProduct::type() const {
 }
 
 double FoodProduct::price_discount(int qty) const {
-    if (price*qty>=300000) return price * qty * 0.8;
-    if (price*qty< 300 && price*qty >100000) return price * qty * 0.9;
+    if (price*qty>=300) return price * qty * 0.8;
+    else if (price*qty< 300 && price*qty >100) return price * qty * 0.9;
     return price * qty;
 }
 

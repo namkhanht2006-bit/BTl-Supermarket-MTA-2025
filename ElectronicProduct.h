@@ -1,7 +1,7 @@
 #include"product.h"
 #include<vector>
 class ElectronicProduct : public product {
-    protected:
+protected:
     string warranty;
 
 public:
@@ -15,11 +15,9 @@ public:
     friend istream& operator>>(istream& is, ElectronicProduct& e);
     friend ostream& operator<<(ostream& os, const ElectronicProduct& e);
     ElectronicProduct();
-    ElectronicProduct(string expiry,string warranty);
+    ElectronicProduct(string warranty);
     ~ElectronicProduct();
 
     void setWarranty(string wrt){ warranty = wrt; };
     void them_file(istream &is) ;
 };
-
-

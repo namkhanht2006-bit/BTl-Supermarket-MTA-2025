@@ -6,8 +6,8 @@ string ElectronicProduct::type() const {
 }
 
 double ElectronicProduct::price_discount(int qty) const {
-    if (price * qty >= 500000) return price * qty * 0.9;
-    else if (price * qty < 500000 && price * qty >= 300000) return price * qty * 0.95;
+    if (price * qty >= 500) return price * qty * 0.9;
+    else if (price * qty < 500&& price * qty >= 300) return price * qty * 0.95;
     return price * qty;
 }
 
