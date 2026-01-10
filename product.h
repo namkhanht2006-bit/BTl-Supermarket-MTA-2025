@@ -23,10 +23,10 @@ public:
     friend istream& operator>>(istream& in, product& p);
     virtual bool Can_sell(int qty) const;
 
-    void setid(const string& v) { id = v; }
-    void setname(const string& v) { name = v; }
+    void setid(string& v) { id = v; }
+    void setname(string& v) { name = v; }
     void setprice(double v) { price = v; }
-    void setbrand(const string& v) { brand = v; }
+    void setbrand( string& v) { brand = v; }
     void setquantity(int v) { quantity = v; }
     void setweight(double v) { weight = v; }
     string getid() const { return id; }
