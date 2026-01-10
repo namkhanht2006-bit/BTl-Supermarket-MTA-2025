@@ -1,8 +1,8 @@
+#pragma once
 #include<string>
 #include<iostream>
-#include<vector>
 #include <fstream>
-#pragma once
+
 
 using namespace std;
 class product {
@@ -35,4 +35,7 @@ public:
     int getquantity() const { return quantity; }
     double getweight() const { return weight; }
     string getbrand()const { return brand; }
+    product();
+    product(string name, string id, double price, string brand, double weight, int quantity);
+    ~product();
 };

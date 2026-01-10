@@ -35,3 +35,13 @@ bool product::Can_sell(int qty) const {
 void product::them_file(istream& in) {
     in >> id >> name >> price >> brand >> quantity >> weight;
 }
+
+product::product(){}
+product::product(string name, string id, double price, string brand, double weight, int quantity) {
+    this->name = name;
+    this->id = id;
+    this->price = price;
+    this->brand = brand;
+    this->weight = weight; this->quantity = quantity;
+}
+product::~product(){}
